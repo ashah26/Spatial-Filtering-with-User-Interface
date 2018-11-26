@@ -8,6 +8,13 @@ class CustomFilter extends Component{
         this.state = {
             custom_filter_range: "3",
             custom_mask: [],
+            custom_mask_dict: {
+                'id': '0',
+                'name': 'custom',
+                'weight': '',
+                'mask': [],
+                'k': ''
+            },
             custom_mat:[]
         };
     }
@@ -24,7 +31,10 @@ class CustomFilter extends Component{
         this.setState({
             ...this.state,
             custom_filter_range: size,
-            custom_mat: mat
+            custom_mask_dict: {
+                ...this.state.custom_mask_dict,
+                mask: mat
+            }
         })
     });
 
@@ -33,41 +43,12 @@ class CustomFilter extends Component{
         if(this.state.custom_filter_range===3 || this.state.custom_filter_range===5 || this.state.custom_filter_range===7) {
             return (
                 <CustomInputMat
-                    custom_mat={this.state.custom_mat}
+                    custom_mask_dict={this.state.custom_mask_dict}
                     range={this.state.custom_filter_range}
-                    row_range={3}
-                    col_range={3}
+                    handleMaskSelect = {this.props.handleMaskSelect}
                 />
             );
         }
-            // switch (this.state.custom_filter_range) {
-            //     case 3:
-            //         return (
-                        {/*<CustomInputMat*/}
-                            // range={}
-                            // row_range={3}
-                            // col_range={3}
-                        // />
-                    // );
-                // case 5:
-                //     return (
-                        {/*<CustomInputMat*/}
-                            // row_range={5}
-                            // col_range={5}
-                        // />
-                    // );
-                // case 7:
-                //     return(
-                        {/*<CustomInputMat*/}
-                            // row_range={7}
-                            // col_range={7}
-                        // />
-                    // );
-                // default:
-                //     console.log("");
-                //     break;
-            // }
-        // }
     });
 
     render() {

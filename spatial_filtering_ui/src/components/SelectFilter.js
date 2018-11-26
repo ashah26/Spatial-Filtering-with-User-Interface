@@ -32,42 +32,41 @@ class SelectFilter extends Component{
             )
         }
         else if(this.state.selection_type === "suggestion"){
-            return this.props.mask_list.map((mask, index)=>{
+            return this.props.mask_list.map((mask_dict, index)=>{
                 return (
                     <div className="container-fluid">
                         <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <input type="radio" className="custom-control-input" id={"mask"+index}
+                            <input type="radio" className="custom-control-input" id={"mask"+mask_dict.id}
                                    name="mask_rdb"
+                                   checked={this.props.selected_mask.id === mask_dict.id}
                                    onClick={(() => {
-                                       this.props.handleMaskSelect(mask);
+                                       this.props.handleMaskSelect(mask_dict);
                                    })}
                             />
-                            <label className="custom-control-label" htmlFor={"mask"+index}></label>
+                            <label className="custom-control-label" htmlFor={"mask"+mask_dict.id}>
+                                {(mask_dict.hasOwnProperty("name") ? mask_dict.name : "")}
+                            </label>
                         </div>
                         <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            {((mask.length > 0 && mask[0] !== 0)? mask[0] : "")}
+                            {((mask_dict.weight === "0") ? "" : mask_dict.weight)}
                         </div>
                         <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             {
-                                (
-                                    mask.length > 1 ?
-                                        mask[1].map((row, index)=>{
-                                            return (
-                                                <span className="row">
-                                                        {
-                                                            row.map((column,index)=>{
-                                                                return(
-                                                                    <span className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                                                        {column}
-                                                                    </span>
-                                                                )
-                                                            })
-                                                        }
-                                                    <br/>
-                                                     </span>
-                                            )
-                                        })
-                                        : "")
+                                mask_dict.mask.map((row, index)=>{
+                                    return (
+                                        <div className="row">
+                                            {
+                                                row.map((column, index)=>{
+                                                    return(
+                                                        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                            {column}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    )
+                                })
                             }
                         </div>
                     </div>

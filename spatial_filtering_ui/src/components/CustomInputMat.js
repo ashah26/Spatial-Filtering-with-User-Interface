@@ -12,15 +12,15 @@ class CustomInputMat extends Component{
 
     custom_mat = [];
 
-    showMatrix = (()=>{
-        this.custom_mat = Object.assign({}, this.props.custom_mat);
+    showCustomMask = (()=>{
+        this.custom_mask = Object.assign([], this.props.custom_mask_dict.mask);
         // this.custom_mat = this.props.custom_mat;
-        console.log("showmarix: ", this.props.custom_mat, this.custom_mat);
+        console.log("showmarix: ", this.props.custom_mask_dict, this.custom_mask);
         return(
             <div className="container">
                 {
                     // this.custom_mat.map((row, row_index)=>{
-                    this.props.custom_mat.map((row, row_index)=>{
+                    this.props.custom_mask_dict.mask.map((row, row_index)=>{
                         console.log("mat row: ", row, row_index);
                         return(
                             <div className="row">
@@ -32,10 +32,10 @@ class CustomInputMat extends Component{
                                                 <input type="text"
                                                        maxLength="3"
                                                        size="1"
-                                                       defaultValue={this.custom_mat[row_index][col_index]}
+                                                       defaultValue={this.custom_mask[row_index][col_index]}
                                                        onChange={((e)=>{
-                                                           console.log("row: ", row_index, "col: ", col_index, this.custom_mat, e.target.value);
-                                                           this.custom_mat[row_index][col_index] = e.target.value;
+                                                           console.log("row: ", row_index, "col: ", col_index, this.custom_mask, e.target.value);
+                                                           this.custom_mask[row_index][col_index] = e.target.value;
                                                        })}
                                                 />
                                             </div>
@@ -53,12 +53,13 @@ class CustomInputMat extends Component{
     handleSave = (()=>{
         console.log("HandleSave: ", this.props.custom_mat, this.custom_mat);
         //TODO: update selected_mask in root state when pressed save
+        this.props.handleMaskSelect(this.custom_mat);
     });
 
     render() {
         return(
             <div>
-                {this.showMatrix()}
+                {this.showCustomMask()}
                 <button className="btn btn-primary" onClick={(()=>{this.handleSave()})}>Save</button>
             </div>
         )
