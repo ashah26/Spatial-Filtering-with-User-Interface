@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {fetchFilterData, performFilter} from "./../api/API";
 import SelectFilter from "./SelectFilter";
-
+import notavailable from './../assets/images/not_available.jpg';
 
 
 class Home extends Component{
@@ -34,12 +34,10 @@ class Home extends Component{
                 });
             }else{
                console.log("DID MOUNT ERROR");
+               alert("Error with Fetching Filter Options. Please try later");
             }
 
         })
-    }
-
-    componentWillMount() {
     }
 
     showFilters = (()=>{
@@ -182,22 +180,23 @@ class Home extends Component{
             if(res.status === 200){
                 console.log("WOPPPIIEEE: "); //TODO: Return Filtered Image
                 res.json().then(((data)=>{
+                    console.log("performFilter Response Body: ", data);
                     this.setState({
                         ...this.state,
                         filtered_image: data
                     })
                 }));
-            }else{
+            }
+            else{
                 console.log("ITS SAD TO HEAR!!");
             }
         })
-
     });
 
     render() {
         return(
             <div className="container-fluid">
-                Welcome to Digital Processing
+                <label className="h1">Welcome to Digital Processing</label>
                 <div className="row">
                     <div className="col-md-4 col-lg-4 col-sm-4 col-xs-4">
                         {this.showFilterTypes()}
@@ -210,9 +209,6 @@ class Home extends Component{
                                 disabled={!(this.state.selected_filter_type && this.state.selected_filter)}
                                 data-toggle="modal"
                                 data-target="#exampleModalLong"
-                                // onClick={(()=>{
-                                //     this.handleSelectFilter()
-                                //{/*})}>*/}
                             >
                             Select Filter
                         </button>
@@ -236,11 +232,11 @@ class Home extends Component{
 
                 <div className="row">
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                        <img className="img-fluid" src={this.state.original_image} alt="original pic"/>
+                        <img className="img-fluid" src={(this.state.original_image ? this.state.original_image : notavailable)} alt="original pic"/>
                     </div>
 
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                        <img className="img-fluid" src="./../assets/Screenshot from 2018-11-08 12-30-43.png" alt="filtered pic"/>
+                        <img className="img-fluid" src={notavailable} alt="filtered pic"/>
                     </div>
 
                 </div>
@@ -262,6 +258,7 @@ class Home extends Component{
                                 </div>
                                 <div className="modal-body">
                                     <SelectFilter
+                                        filter = {this.state.selected_filter}
                                         mask_list = {this.state.mask_list}
                                         handleMaskSelect = {this.handleMaskSelect}
                                     />
