@@ -34,7 +34,7 @@ class SelectFilter extends Component{
         else if(this.state.selection_type === "suggestion"){
             return this.props.mask_list.map((mask, index)=>{
                 return (
-                    <div className="">
+                    <div className="container-fluid">
                         <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <input type="radio" className="custom-control-input" id={"mask"+index}
                                    name="mask_rdb"
@@ -106,11 +106,9 @@ class SelectFilter extends Component{
                         <label className="custom-control-label" htmlFor="mask_custom">Custom</label>
                     </div>
                 </div>
-                <div>
+                <div className="row">
                     {this.showRespectiveFilterOptions()}
                 </div>
-                {
-                }
             </div>
         )
     }

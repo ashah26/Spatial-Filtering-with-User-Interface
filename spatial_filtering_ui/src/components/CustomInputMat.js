@@ -52,6 +52,7 @@ class CustomInputMat extends Component{
 
     handleSave = (()=>{
         console.log("HandleSave: ", this.props.custom_mat, this.custom_mat);
+        //TODO: update selected_mask in root state when pressed save
     });
 
     render() {
