@@ -22,6 +22,8 @@ class HomeService:
             with open(file_name, 'wb') as f:
                 f.write(image_data)
 
+
+
             # Filtered Image base64 encoded
             filtered_image = ""
             res_body = {

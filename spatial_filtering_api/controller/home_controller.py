@@ -49,7 +49,8 @@ def fetch_data():
                 [5, []]
             ],
             "Unsharp Mask Filter": [
-                [6,[]]
+                ['1/9', [[1, 1, 1], [1, 1, 1], [1, 1, 1]]],
+                ['1/16', [[1, 2, 1], [2, 4, 2], [1, 2, 1]]]
             ]
         }}
     return Response(json.dumps(filter_dict), status=200, mimetype="application/json")
