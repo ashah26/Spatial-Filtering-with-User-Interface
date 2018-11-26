@@ -15,6 +15,7 @@ class Home extends Component{
             mask_list: [],
             selected_mask: [],
             original_image:"",
+            file_path: "",
             filtered_image:"",
             filter_dict: {}
         }
@@ -46,6 +47,7 @@ class Home extends Component{
                 return(
                     <div className="custom-control custom-radio">
                         <input className="custom-control-input" type="radio" id={filter} name="filterName"
+                               checked={this.state.selected_filter === filter}
                                onClick={(()=>{
                                    this.setState({
                                        ...this.state,
@@ -154,13 +156,15 @@ class Home extends Component{
             // console.log("[QuationComponent] handleFileUpload : ", this.state.is_option_image);
             self.setState({
                 ...self.state,
-                original_image: base64data
+                original_image: base64data,
+                file_path: file.name
             });
 
         }
     });
 
     handleMaskSelect=((mask)=>{
+        console.log("handleMaskSelect: ", mask);
         this.setState({
             ...this.state,
             selected_mask: mask
@@ -213,12 +217,31 @@ class Home extends Component{
                             Select Filter
                         </button>
                     </div>
+
+                    <div>
+                        <button id="btn_select_filter" type="button" className="btn btn-primary"
+                                onClick={(()=>{
+                                    this.setState({
+                                        ...this.state,
+                                        selected_filter_type: "",
+                                        selected_filter: "",
+                                        mask_list: [],
+                                        selected_mask: [],
+                                        original_image:"",
+                                        file_path: "",
+                                        filtered_image:"",
+                                    })
+                                })}
+                        >
+                            Reset
+                        </button>
+                    </div>
                 </div>
 
                 <div className="row">
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="File Path" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+                            <input type="text" value={this.state.file_path} className="form-control" placeholder="File Path" aria-label="Recipient's username" aria-describedby="button-addon2"/>
                             <button className="btn btn-primary" onClick={(()=>{document.getElementById("fileBrowse").click()})}>Browse</button>
                             <input type="file" id="fileBrowse" hidden={true} onChange={((event)=>{this.uploadImage(event)})}/>
                         </div>
@@ -229,23 +252,15 @@ class Home extends Component{
                                 onClick={(()=>{this.performFilter()})}> Apply Filter</button>
                     </div>
                 </div>
-
                 <div className="row">
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                         <img className="img-fluid" src={(this.state.original_image ? this.state.original_image : notavailable)} alt="original pic"/>
                     </div>
-
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                        <img className="img-fluid" src={notavailable} alt="filtered pic"/>
+                        <img className="img-fluid" src={(this.state.filtered_image ? this.state.filtered_image : notavailable)} alt="filtered pic"/>
                     </div>
-
                 </div>
                 <div>
-
-                </div>
-                <div>
-
-
                     <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog"
                          aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                         <div className="modal-dialog" role="document">
@@ -261,8 +276,8 @@ class Home extends Component{
                                         filter = {this.state.selected_filter}
                                         mask_list = {this.state.mask_list}
                                         handleMaskSelect = {this.handleMaskSelect}
+                                        selected_mask = {this.state.selected_mask}
                                     />
-                                    {/*{this.showFilterMask()}*/}
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close
