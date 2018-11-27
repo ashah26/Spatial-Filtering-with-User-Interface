@@ -175,7 +175,7 @@ class Home extends Component{
         console.log("In perform filter: ",this.state.selected_mask, this.state.original_image);
         let payload = {
             original_image: this.state.original_image,
-            mask: this.state.selected_mask,
+            mask_dict: this.state.selected_mask,
             filter:this.state.selected_filter
         };
 
@@ -187,7 +187,7 @@ class Home extends Component{
                     console.log("performFilter Response Body: ", data);
                     this.setState({
                         ...this.state,
-                        filtered_image: data
+                        filtered_image: data.filtered_image
                     })
                 }));
             }
@@ -248,7 +248,7 @@ class Home extends Component{
                     </div>
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                         <button type="button" className="btn btn-primary"
-                                disabled={!(this.state.original_image && this.state.selected_mask.length>0)}
+                                disabled={!(this.state.original_image && this.state.selected_mask.mask)}
                                 onClick={(()=>{this.performFilter()})}> Apply Filter</button>
                     </div>
                 </div>
@@ -283,7 +283,7 @@ class Home extends Component{
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close
                                     </button>
                                     <button type="button" className="btn btn-primary" data-dismiss="modal"
-                                            disabled={!this.state.selected_mask.length>0}>
+                                            disabled={!this.state.selected_mask.mask}>
                                         Confirm
                                     </button>
                                 </div>
