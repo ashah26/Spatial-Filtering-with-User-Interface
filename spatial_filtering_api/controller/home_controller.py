@@ -1,5 +1,9 @@
 from flask import request, Response, Blueprint, json
+import traceback
+
 from service.home_service import HomeService
+
+
 home = Blueprint('home_controller', __name__)
 home_service = HomeService()
 
@@ -18,11 +22,14 @@ def check_health():
 
 @home.route("/filter",methods=["POST"])
 def perform_filter():
-    print("Request perform filter: ", request.json)
-    status, res_body = home_service.perform_filter(request.json)
-    if status == 1:
-        return Response(json.dumps(res_body), status=200)
-    return Response(status=404)
+    try:
+        print("Request perform filter: ", request.json)
+        status, res_body = home_service.perform_filter(request.json)
+        if status == 1:
+            return Response(json.dumps(res_body), status=200)
+        return Response(status=404)
+    except Exception:
+        print("Error while performing filter:\n{}".format(traceback.format_exc()))
 
 
 @home.route("/filter", methods=["GET"])
