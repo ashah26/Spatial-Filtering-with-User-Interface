@@ -13,7 +13,7 @@ class Home extends Component{
             selected_filter: "",
             open_modal: false,
             mask_list: [],
-            selected_mask: [],
+            selected_mask_dict: [],
             original_image:"",
             file_path: "",
             filtered_image:"",
@@ -167,15 +167,15 @@ class Home extends Component{
         console.log("handleMaskSelect: ", mask);
         this.setState({
             ...this.state,
-            selected_mask: mask
+            selected_mask_dict: mask
         })
     });
     
     performFilter=(()=>{
-        console.log("In perform filter: ",this.state.selected_mask, this.state.original_image);
+        console.log("In perform filter: ",this.state.selected_mask_dict, this.state.original_image);
         let payload = {
             original_image: this.state.original_image,
-            mask_dict: this.state.selected_mask,
+            mask_dict: this.state.selected_mask_dict,
             filter:this.state.selected_filter
         };
 
@@ -226,7 +226,7 @@ class Home extends Component{
                                         selected_filter_type: "",
                                         selected_filter: "",
                                         mask_list: [],
-                                        selected_mask: [],
+                                        selected_mask_dict: [],
                                         original_image:"",
                                         file_path: "",
                                         filtered_image:"",
@@ -248,7 +248,7 @@ class Home extends Component{
                     </div>
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                         <button type="button" className="btn btn-primary"
-                                disabled={!(this.state.original_image && this.state.selected_mask.mask)}
+                                disabled={!(this.state.original_image && this.state.selected_mask_dict.mask)}
                                 onClick={(()=>{this.performFilter()})}> Apply Filter</button>
                     </div>
                 </div>
@@ -276,14 +276,14 @@ class Home extends Component{
                                         filter = {this.state.selected_filter}
                                         mask_list = {this.state.mask_list}
                                         handleMaskSelect = {this.handleMaskSelect}
-                                        selected_mask = {this.state.selected_mask}
+                                        selected_mask_dict = {this.state.selected_mask_dict}
                                     />
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close
                                     </button>
                                     <button type="button" className="btn btn-primary" data-dismiss="modal"
-                                            disabled={!this.state.selected_mask.mask}>
+                                            disabled={!this.state.selected_mask_dict.mask}>
                                         Confirm
                                     </button>
                                 </div>
