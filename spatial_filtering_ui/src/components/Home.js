@@ -3,7 +3,7 @@ import "downloadjs";
 import {fetchFilterData, performFilter} from "./../api/API";
 import SelectFilter from "./SelectFilter";
 import notavailable from './../assets/images/not_available.jpg';
-import '../assets/css/Home.css';
+import '../assets/css/home.css';
 // import LoadingSpinner from "./LoadingSpinner"
 
 
@@ -267,11 +267,13 @@ class Home extends Component{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                        <img className="img-fluid" src={(this.state.original_image ? this.state.original_image : notavailable)} alt="original pic"/>
+                    <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6 ">
+                        <img className="img-fluid h-75 d-inline-block"
+                             src={(this.state.original_image ? this.state.original_image : notavailable)}
+                             alt="original pic"/>
                     </div>
-                    <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                        <img className="img-fluid"
+                    <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6 h-100 d-inline-block">
+                        <img className="img-fluid mx-auto h-75 d-inline-block"
                              src={(this.state.filtered_image ? this.state.filtered_image : notavailable)}
                              alt="filtered pic"/>
                     </div>
