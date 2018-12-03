@@ -4,7 +4,7 @@ import random
 
 MAX_NO = 99999
 
-def ApplyFilter(img, filter):
+def apply_laplacian_filter(img, filter):
     height = img.shape[0]
     width = img.shape[1]
 

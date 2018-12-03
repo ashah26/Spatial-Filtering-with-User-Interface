@@ -6,6 +6,9 @@ import cv2
 import numpy as np
 
 from util.laplacian_util import apply_laplacian_filter
+from util.unsharp_masking_util import apply_unsharp_masking
+from util.linear_filter_util import linear_filter
+# from util.first_order_derivative import first_order_derivative
 
 
 class HomeService:
@@ -50,10 +53,21 @@ class HomeService:
             filtered_image_name = "{}/filtered_{}.jpg".format(file_path,file_creation_time)
 
             filtered_image = ""
+
             # pass the original image and mask to different filters
             if request_params['filter'] == 'Laplacian Filter':
                 filtered_image = apply_laplacian_filter(original_image,
                                                         np.array(request_params['mask_dict']['mask']))
+            elif request_params['filter'] == 'Unsharp Mask Filter':
+                filtered_image = apply_unsharp_masking(original_image,
+                                                       np.array(request_params['mask_dict']['mask']),
+                                                       request_params['mask_dict']['k'])
+            elif request_params['filter'] == 'Linear Filter':
+                filtered_image = linear_filter(original_image,
+                                               np.array(request_params['mask_dict']['mask']))
+            # elif request_params['filter'] == 'First Order Derivative Filter':
+            #     filtered_image = first_order_derivative(original_image,
+            #                                             request_params['mask_dict']['name'])
             else:
                 print("Filter selection does not match")
 
@@ -73,7 +87,8 @@ class HomeService:
 
             if filtered_image:
                 res_body = {
-                    'filtered_image': 'data:image/png;base64, ' + filtered_image,
+                    'filtered_image': 'data:image/jpeg;base64, ' + filtered_image,
+
                     'msg': 'success'
                 }
 
