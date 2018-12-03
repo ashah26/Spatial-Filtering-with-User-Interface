@@ -1,0 +1,15 @@
+.reset_button{
+    padding-left: 10px;
+}
+
+.select_mask_button{
+    padding-left: 50px;
+}
+
+.file_path{
+    padding-top: 15px;
+}
+
+.center-block {
+    float:none;
+}
