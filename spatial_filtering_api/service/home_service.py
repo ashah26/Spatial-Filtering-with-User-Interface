@@ -8,7 +8,7 @@ import numpy as np
 from util.laplacian_util import apply_laplacian_filter
 from util.unsharp_masking_util import apply_unsharp_masking
 from util.linear_filter_util import linear_filter
-# from util.first_order_derivative import first_order_derivative
+from util.first_order_derivative import first_order_derivative
 
 
 class HomeService:
@@ -55,6 +55,8 @@ class HomeService:
             filtered_image = ""
 
             # pass the original image and mask to different filters
+            # print("Array passed to backed ::: ", request_params['mask_dict']['mask'],
+            #       type(request_params['mask_dict']['mask']))
             if request_params['filter'] == 'Laplacian Filter':
                 filtered_image = apply_laplacian_filter(original_image,
                                                         np.array(request_params['mask_dict']['mask']))
@@ -65,9 +67,10 @@ class HomeService:
             elif request_params['filter'] == 'Linear Filter':
                 filtered_image = linear_filter(original_image,
                                                np.array(request_params['mask_dict']['mask']))
-            # elif request_params['filter'] == 'First Order Derivative Filter':
-            #     filtered_image = first_order_derivative(original_image,
-            #                                             request_params['mask_dict']['name'])
+            elif request_params['filter'] == 'First Order Derivative Filter':
+                filtered_image = first_order_derivative(original_image,
+                                                        request_params['mask_dict']['name'],
+                                                        request_params['mask_dict']['weight'])
             else:
                 print("Filter selection does not match")
 

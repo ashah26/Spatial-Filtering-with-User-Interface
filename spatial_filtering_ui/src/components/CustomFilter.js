@@ -1,5 +1,6 @@
 import  React,{Component} from 'react'
 import CustomInputMat from "./CustomInputMat";
+import '../assets/css/CustomFilter.css';
 
 class CustomFilter extends Component{
 
@@ -13,7 +14,7 @@ class CustomFilter extends Component{
                 'name': 'custom',
                 'weight': '',
                 'mask': [],
-                'k': ''
+                'k': 0
             },
             custom_mat:[]
         };
@@ -51,10 +52,54 @@ class CustomFilter extends Component{
         }
     });
 
+
+    labelChange = (()=>{
+        var changing;
+        console.log("Selected Filter labelChange:  ",this.props.selected_filter)
+        if(this.props.selected_filter === "Unsharp Mask Filter"){
+            changing = "Enter Value of k"
+
+        }else if (this.props.selected_filter === "First Order Derivative Filter"){
+            changing ="Enter Value of weight for Sobel"
+        }
+        if(changing){
+            return (
+
+                <div className="enterValue">
+
+                    {/*<label className="labelClass">*/}
+                        {/*{changing}*/}
+                    {/*</label>*/}
+
+
+                    <input type="text" className="" placeholder={changing} onChange={((event)=>{
+                        this.setState({
+                            ...this.state,
+                            custom_mask_dict: {
+                                ...this.state.custom_mask_dict,
+                                k: parseInt(event.target.value)
+                            }
+
+                        })
+
+                    })}/>
+
+                </div>
+            )
+
+        }
+
+    });
+
     render() {
         return(
             <div>
                 <div className="row">
+                    {this.labelChange()}
+
+                    <br/>
+                </div>
+                <div className="row selectSize" >
                     <div className="btn-group" align="center">
                         <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -67,6 +112,7 @@ class CustomFilter extends Component{
                         </div>
                     </div>
                 </div>
+
                 <div className="row">
                     {this.showCustomInputMatrix()}
                 </div>

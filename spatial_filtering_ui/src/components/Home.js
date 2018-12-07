@@ -3,7 +3,7 @@ import "downloadjs";
 import {fetchFilterData, performFilter} from "./../api/API";
 import SelectFilter from "./SelectFilter";
 import notavailable from './../assets/images/not_available.jpg';
-import '../assets/css/home.css';
+import '../assets/css/Home.css';
 // import LoadingSpinner from "./LoadingSpinner"
 
 
@@ -16,7 +16,7 @@ class Home extends Component{
             selected_filter: "",
             open_modal: false,
             mask_list: [],
-            selected_mask_dict: [],
+            selected_mask_dict: {},
             original_image:"",
             file_path: "",
             filtered_image:"",
@@ -183,7 +183,7 @@ class Home extends Component{
             mask_dict: this.state.selected_mask_dict,
             filter:this.state.selected_filter
         };
-
+        console.log("Before API call: ", payload);
         performFilter(payload).then((res)=>{
             console.log("Perform Filter status: ",res.status);
             if(res.status === 200){
@@ -216,13 +216,13 @@ class Home extends Component{
                 <label className="h1">Welcome to Digital Image Processing</label><br/>
                 <label className="h2">Spatial Filtering</label>
                 <div className="row">
-                    <div className="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                    <div className="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                         {this.showFilterTypes()}
                     </div>
-                    <div className="col-md-4 col-lg-4 col-sm-4 col-xs-4" align="left">
+                    <div className="col-md-3 col-lg-3 col-sm-3 col-xs-3" align="left">
                         {this.showFilters()}
                     </div>
-                    <div class="select_mask_button">
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 ">
                         <button id="btn_select_filter" type="button" className="btn btn-primary"
                                 disabled={!(this.state.selected_filter_type && this.state.selected_filter)}
                                 data-toggle="modal"
@@ -232,7 +232,7 @@ class Home extends Component{
                         </button>
                     </div>
 
-                    <div class="reset_button">
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                         <button id="btn_select_filter" type="button" className="btn btn-primary"
                                 onClick={(()=>{
                                     this.setState({
@@ -260,31 +260,34 @@ class Home extends Component{
                             <input type="file" id="fileBrowse" hidden={true} onChange={((event)=>{this.uploadImage(event)})}/>
                         </div>
                     </div>
-                    <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6 file_path">
+                    <div className="col-sm-3 col-lg-3 col-md-3 col-xs-3 file_path">
                         <button type="button" className="btn btn-primary"
                                 disabled={!(this.state.original_image && this.state.selected_mask_dict.mask)}
                                 onClick={(()=>{this.performFilter()})}> Apply Filter</button>
                     </div>
+
+                    <div className="col-sm-3 col-lg-3 col-md-3 col-xs-3 file_path">
+
+                        <button type="button" className="btn btn-primary center-block"
+                                disabled={!(this.state.original_image && this.state.filtered_image)}
+                                onClick={(()=>{this.downloadImage()})}> Download
+                        </button>
+                    </div>
+
                 </div>
                 <div className="row">
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6 ">
-                        <img className="img-fluid h-75 d-inline-block"
+                        <img className=""
                              src={(this.state.original_image ? this.state.original_image : notavailable)}
                              alt="original pic"/>
                     </div>
                     <div className="col-sm-6 col-lg-6 col-md-6 col-xs-6 h-100 d-inline-block">
-                        <img className="img-fluid mx-auto h-75 d-inline-block"
+                        <img className=" "
                              src={(this.state.filtered_image ? this.state.filtered_image : notavailable)}
                              alt="filtered pic"/>
                     </div>
                 </div>
 
-                <div className="row file_path text-center">
-
-                       <button type="button" className="btn btn-primary center-block"
-                            onClick={(()=>{this.downloadImage()})}> Download
-                       </button>
-                </div>
                 <a hidden={true} id="dwnldLnk"></a>
                 <div>
                     <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog"
@@ -303,6 +306,7 @@ class Home extends Component{
                                         mask_list = {this.state.mask_list}
                                         handleMaskSelect = {this.handleMaskSelect}
                                         selected_mask_dict = {this.state.selected_mask_dict}
+                                        selected_filter = {this.state.selected_filter}
                                     />
                                 </div>
                                 <div className="modal-footer">
@@ -310,7 +314,7 @@ class Home extends Component{
                                     </button>
                                     <button type="button" className="btn btn-primary" data-dismiss="modal"
                                             disabled={!this.state.selected_mask_dict.mask}>
-                                        Confirm
+                                        OK
                                     </button>
                                 </div>
                             </div>

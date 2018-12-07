@@ -13,3 +13,8 @@
 .center-block {
     float:none;
 }
+
+img{
+    width: 500px;
+    height: 400px;
+}

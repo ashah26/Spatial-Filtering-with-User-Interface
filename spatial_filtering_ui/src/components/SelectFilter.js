@@ -27,6 +27,7 @@ class SelectFilter extends Component{
                         filter = {this.props.filter}
                         mask_list = {this.props.mask_list}
                         handleMaskSelect = {this.props.handleMaskSelect}
+                        selected_filter = {this.props.selected_filter}
                     />
                 </div>
             )
@@ -55,9 +56,11 @@ class SelectFilter extends Component{
                                             {
                                                 row.map((column, index)=>{
                                                     return(
-                                                        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+
+                                                            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+
                                                             {/* //TODO: add formating*/}
-                                                            {column}
+                                                            <label>{column}</label>
                                                         </div>
                                                     )
                                                 })
