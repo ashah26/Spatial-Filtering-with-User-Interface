@@ -9,6 +9,7 @@ from util.laplacian_util import apply_laplacian_filter
 from util.unsharp_masking_util import apply_unsharp_masking
 from util.linear_filter_util import linear_filter
 from util.first_order_derivative import first_order_derivative
+from util.non_linear_median_util import apply_median
 
 
 class HomeService:
@@ -70,7 +71,10 @@ class HomeService:
             elif request_params['filter'] == 'First Order Derivative Filter':
                 filtered_image = first_order_derivative(original_image,
                                                         request_params['mask_dict']['name'],
-                                                        request_params['mask_dict']['weight'])
+                                                        request_params['mask_dict']['k'])
+            elif request_params['filter'] == 'Non-Linear Filter':
+                filtered_image = apply_median(original_image,
+                                               request_params['mask_dict']['size'])
             else:
                 print("Filter selection does not match")
 

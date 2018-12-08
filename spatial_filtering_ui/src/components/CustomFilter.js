@@ -99,7 +99,7 @@ class CustomFilter extends Component{
 
                     <br/>
                 </div>
-                <div className="row selectSize" >
+                <div className="row selectSize">
                     <div className="btn-group" align="center">
                         <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">

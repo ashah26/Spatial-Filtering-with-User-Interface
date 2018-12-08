@@ -41,9 +41,10 @@ def fetch_data():
                 {'id': 1, 'mask': [[0.11, 0.11, 0.11], [0.11, 0.11, 0.11], [0.11, 0.11, 0.11]]},
                 {'id': 2, 'mask': [[0.06, 0.12, 0.06], [0.12, 0.25, 0.12], [0.06, 0.12, 0.06]]}
             ],
-            "Non-Linear Median Filter": [
-                {'id': 13, 'mask': [[3*3], [5*5], ]},
-                {}
+            "Non-Linear Filter": [
+                {'id': 13, 'mask': [['3*3']], 'size':3},
+                {'id': 14, 'mask': [['5*5']], 'size':5},
+                {'id': 15, 'mask': [['7*7']], 'size':7},
             ]
         },
         "Image Sharpening": {
@@ -54,11 +55,11 @@ def fetch_data():
                 {'id': 6, 'mask': [[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]]}
             ],
             "First Order Derivative Filter": [
-                {'id': 7, 'mask': [[1, 0, -1], [1, 0, -1], [1, 0, -1]], 'name': 'Prewitt', 'weight': 0},
+                {'id': 7, 'mask': [[1, 0, -1], [1, 0, -1], [1, 0, -1]], 'name': 'Prewitt', 'k': 0},
                 # {'id': 8, 'mask': [[1, 1, 1], [0, 0, 0], [-1, -1, -1]], 'name': 'Prewitt', 'weight': 0},
-                {'id': 9, 'mask': [[1, 0, -1], [2, 0, -2], [1, 0, -1]], 'name': 'Sobel', 'weight': 2},
+                {'id': 9, 'mask': [[1, 0, -1], [2, 0, -2], [1, 0, -1]], 'name': 'Sobel', 'k': 0},
                 # {'id': 10, 'mask': [[1, 2, 1], [0, 0, 0], [-1, -2, -1]], 'name': 'Sobel', 'weight': 2},
-                {'id': 11, 'mask': [[0, 1], [-1, 0]], 'name': 'Roberts', 'weight': 0}
+                {'id': 11, 'mask': [[0, 1], [-1, 0]], 'name': 'Roberts', 'k': 0}
                 # {'id': 12, 'mask': [[1, 0], [0, -1]], 'name': 'Roberts', 'weight': 0}
             ],
             "Unsharp Mask Filter": [
